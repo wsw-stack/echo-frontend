@@ -14,8 +14,8 @@ export const UploadForm = () => {
                             <CheckBox id="summary" labelText="Summary" key="4" />
                         </div>
                         <div className="mb-3">
-                            <p className="card-text fs-4 text-light">Select a media file</p>
-                            <p className="card-text fs-5 text-secondary">Supported types: .mp3 and .mp4, maximum 1GB</p>
+                            <p className="card-text fs-4 text-light lh-sm mb-1">Select a media file</p>
+                            <p className="card-text fs-6 text-secondary">Supported types: .mp3 and .mp4, maximum 1GB</p>
                             <input className="form-control rounded-3 shadow-sm" type="file" id="formFile" />
                         </div>
                         <div className="d-flex justify-content-center">

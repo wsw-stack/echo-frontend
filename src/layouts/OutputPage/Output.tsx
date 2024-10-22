@@ -46,33 +46,18 @@ export const Output = () => {
             <div className="container flex-grow-1 pt-3">
                 <div className="col-6 offset-3">
                     <div className="card bg-dark border-white mt-3 mb-3">
-                        <div className="card-header">
-                            <h4 className="card-title text-light fw-bold">Q & A</h4>
+                        <div className="p-3 pb-2">
+                            <h3 className=" text-light fw-bold border-0">Q & A</h3>
                         </div>
-                        <div className="card bg-dark border-white m-2">
-                            <div className="card-body">
-                                <p className="card-text text-light fs-5 fw-bold">Q1: {Object.entries(qAndA)[0][0]}</p>
-                                <p className="card-text text-light">A1: {Object.entries(qAndA)[0][1]}</p>
-                            </div>
-                        </div>
-                        <div className="card bg-dark border-white m-2">
-                            <div className="card-body">
-                                <p className="card-text text-light fs-5 fw-bold">Q2: {Object.entries(qAndA)[1][0]}</p>
-                                <p className="card-text text-light">A2: {Object.entries(qAndA)[1][1]}</p>
-                            </div>
-                        </div>
-                        <div className="card bg-dark border-white m-2">
-                            <div className="card-body">
-                                <p className="card-text text-light fs-5 fw-bold">Q3: {Object.entries(qAndA)[2][0]}</p>
-                                <p className="card-text text-light">A4: {Object.entries(qAndA)[2][1]}</p>
-                            </div>
-                        </div>
-                        <div className="card bg-dark border-white m-2">
-                            <div className="card-body">
-                                <p className="card-text text-light fs-5 fw-bold">Q4: {Object.entries(qAndA)[3][0]}</p>
-                                <p className="card-text text-light">A4: {Object.entries(qAndA)[3][1]}</p>
-                            </div>
-                        </div>
+                        <hr className="border-light m-0"></hr>
+                        <p className=" text-light fs-5 fw-bold px-3 pt-3">Q1: {Object.entries(qAndA)[0][0]}</p>
+                        <p className=" text-light px-3">A1: {Object.entries(qAndA)[0][1]}</p>
+                        <p className=" text-light fs-5 fw-bold px-3">Q2: {Object.entries(qAndA)[1][0]}</p>
+                        <p className=" text-light px-3">A2: {Object.entries(qAndA)[1][1]}</p>
+                        <p className=" text-light fs-5 fw-bold px-3">Q3: {Object.entries(qAndA)[2][0]}</p>
+                        <p className=" text-light px-3">A4: {Object.entries(qAndA)[2][1]}</p>
+                        <p className=" text-light fs-5 fw-bold px-3">Q4: {Object.entries(qAndA)[3][0]}</p>
+                        <p className=" text-light px-3">A4: {Object.entries(qAndA)[3][1]}</p>
                     </div>
 
                     <div className="card bg-dark border-white mb-3">
@@ -85,33 +70,18 @@ export const Output = () => {
                     </div>
 
                     <div className="card bg-dark border-white mb-3">
-                        <div className="card-header">
-                            <h4 className="card-title text-light fw-bold">Notes</h4>
+                        <div className="p-3 pb-2">
+                            <h4 className=" text-light fw-bold">Notes</h4>
                         </div>
-                        <div className="card bg-dark border-white m-2">
-                            <div className="card-body">
-                                <p className="card-text text-light fs-5 fw-bold">1.{Object.entries(notes)[0][0]}</p>
-                                <p className="card-text text-light">{Object.entries(notes)[0][1]}</p>
-                            </div>
-                        </div>
-                        <div className="card bg-dark border-white m-2">
-                            <div className="card-body">
-                                <p className="card-text text-light fs-5 fw-bold">2.{Object.entries(notes)[1][0]}</p>
-                                <p className="card-text text-light">{Object.entries(notes)[1][1]}</p>
-                            </div>
-                        </div>
-                        <div className="card bg-dark border-white m-2">
-                            <div className="card-body">
-                                <p className="card-text text-light fs-5 fw-bold">3.{Object.entries(notes)[2][0]}</p>
-                                <p className="card-text text-light">{Object.entries(notes)[2][1]}</p>
-                            </div>
-                        </div>
-                        <div className="card bg-dark border-white m-2">
-                            <div className="card-body">
-                                <p className="card-text text-light fs-5 fw-bold">4.{Object.entries(notes)[3][0]}</p>
-                                <p className="card-text text-light">{Object.entries(notes)[3][1]}</p>
-                            </div>
-                        </div>
+                        <hr className="border-light m-0"></hr>
+                        <p className=" text-light fs-5 fw-bold px-3 pt-3">1.{Object.entries(notes)[0][0]}</p>
+                        <p className=" text-light px-3">{Object.entries(notes)[0][1]}</p>
+                        <p className=" text-light fs-5 fw-bold px-3">2.{Object.entries(notes)[1][0]}</p>
+                        <p className=" text-light px-3">{Object.entries(notes)[1][1]}</p>
+                        <p className=" text-light fs-5 fw-bold px-3">3.{Object.entries(notes)[2][0]}</p>
+                        <p className=" text-light px-3">{Object.entries(notes)[2][1]}</p>
+                        <p className=" text-light fs-5 fw-bold px-3">4.{Object.entries(notes)[3][0]}</p>
+                        <p className=" text-light px-3">{Object.entries(notes)[3][1]}</p>
                     </div>
 
                     <div className="card bg-dark border-white">
