@@ -1,42 +1,42 @@
-import { MouseEventHandler } from "react";
+import { FormEventHandler, MouseEventHandler, useState } from "react";
 
 import { CheckBox } from "./CheckBox"
+import { useNavigate } from "react-router-dom";
 
 export const UploadForm = () => {
+    const navigate = useNavigate();  // 使用 useNavigate 钩子
 
-    const postText: MouseEventHandler = async (e) => {
-        e.preventDefault()
+    const postText: FormEventHandler<HTMLFormElement> = async (e) => {
+        e.preventDefault();
         
         try {
-            // TODO: change API path
-          const response = await fetch('https://jsonplaceholder.typicode.com/postst', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            // TODO:
-            body: JSON.stringify({title: 'foo',
-                body: 'bar',
-                userId: 1}),  // 将文本内容包装到请求主体中
-          });
-      
-          if (!response.ok) {
-            throw new Error('Failed to post data');
-          }
-      
-          const data = await response.json();
-          console.log('Data submitted successfully:', data);
-          return data;  // 返回响应数据，方便其他地方使用
+            const response = await fetch('http://127.0.0.1:5050/text', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title: 'foo', body: 'bar', userId: 1 }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to post data');
+            }
+
+            const data = await response.json();
+            console.log('Data submitted successfully:', data);
+            
+            // 在这里进行重定向，传递数据
+            navigate('/output', { state: { data } });  // 使用 state 传递数据
+
         } catch (error) {
-          console.error('Error posting data:', error);
+            console.error('Error posting data:', error);
         }
-    
     };
 
     
     return (
         <div className="m-3 col-6">
-            <form>
+            <form onSubmit={postText}>
                 <div className="card bg-dark border-white">
                     <div className="card-body">
                         <p className="card-text fs-4 text-light">Select the content you want to generate</p>
@@ -52,7 +52,7 @@ export const UploadForm = () => {
                             <input className="form-control rounded-3 shadow-sm" type="file" id="formFile" />
                         </div>
                         <div className="d-flex justify-content-center">
-                            <button className="btn mt-3 text-light border-light fw-bold" style={{ borderWidth: '2px' }} onClick={postText}>
+                            <button type="submit" className="btn mt-3 text-light border-light fw-bold" style={{ borderWidth: '2px' }}>
                                 Generate a response
                             </button>
                         </div>
