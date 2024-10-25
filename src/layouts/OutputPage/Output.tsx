@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { OutputSection } from "./Components/OutputSection"
 import { useLocation } from "react-router-dom";
-
+import { qAndAMock } from "../../mock/output";
+import { QASection } from "./Components/QASection";
 export const Output = () => {
     const location = useLocation();  // 获取当前路由信息
     console.log(location)
@@ -21,7 +22,7 @@ export const Output = () => {
         <div className="min-vh-100 bg-dark">
             <div className="container flex-grow-1 pt-3">
                 <div className="col-6 offset-3">
-                    <OutputSection title='Q&A' text={qAndA} />
+                    <QASection title='Q&A' qAndA={qAndAMock} />
                     <OutputSection title='Transcript' text={transcript} />
                     <OutputSection title='Notes' text={notes} />
                     <OutputSection title='Summary' text={summary} />
