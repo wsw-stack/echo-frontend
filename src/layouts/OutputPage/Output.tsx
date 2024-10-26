@@ -19,9 +19,9 @@ export const Output = () => {
     // const summary = "It seems you provided a boilerplate text from Project Gutenberg. I'll provide a concise summary of the main points: **Project Gutenberg's Mission**: To increase access to public domain and licensed works in machine-readable formats. **Key Points**: 1. **Copyright and License**: Works are usually copyright-free or have been released under a license that allows free distribution. 2. **Volunteer Effort**: The project relies on volunteers to digitize, proofread, and maintain the collection. 3. **Financial Support**: Donations help cover expenses, ensure long-term viability, and support the foundation's mission. 4. **Donation Information**: Contributions are tax-deductible in the United States and can be made through various channels (e.g., online payments). 5. **General Information**: Project Gutenberg is a non-profit organization (501(c)(3) in the US), with its principal office located in Alaska, but has employees and volunteers worldwide. If you have any specific questions or would like further clarification on any of these points, please feel free to ask!"
     return (
         <div className="min-vh-100 bg-dark">
-            <div className="container flex-grow-1 pt-3">
+            <div className="container-fluid flex-grow-1 pt-3">
                 <div className="col-6 offset-3">
-                    <QASection title='Q&A' qAndA={qAndA} />
+                    {qAndA && <QASection title='Q&A' qAndA={qAndA} />}
                     {transcript && <OutputSection title='Transcript' text={transcript} />}
                     {notes && <OutputSection title='Notes' text={notes} />}
                     {summary && <OutputSection title='Summary' text={summary} />}
