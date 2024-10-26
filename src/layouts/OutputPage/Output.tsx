@@ -19,8 +19,8 @@ export const Output = () => {
                     {notes && <OutputSection title='Notes' text={notes} />}
                     {summary && <OutputSection title='Summary' text={summary} />}
                     <div className="d-flex justify-content-center">
-                        <button type="submit" className="btn btn-black m-3 text-light border-white fw-bold" style={{ borderWidth: '2px' }}>
-                            Download as a .txt file
+                        <button className="btn btn-black m-3 text-light border-white fw-bold" style={{ borderWidth: '2px' }} >
+                            Download PDF
                         </button>
                     </div>
                 </div>
