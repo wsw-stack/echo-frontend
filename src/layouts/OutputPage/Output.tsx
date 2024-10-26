@@ -22,6 +22,9 @@ export const Output = () => {
                         <button className="btn btn-black m-3 text-light border-white fw-bold" style={{ borderWidth: '2px' }} >
                             Download PDF
                         </button>
+                        <button className="btn btn-black m-3 text-light border-white fw-bold" style={{ borderWidth: '2px' }} >
+                            Download TXT
+                        </button>
                     </div>
                 </div>
             </div>
