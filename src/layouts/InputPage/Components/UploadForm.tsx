@@ -1,11 +1,42 @@
-import { ChangeEventHandler, FormEventHandler, useState } from "react";
+import {ChangeEventHandler, FormEventHandler, useState, useEffect } from "react";
 import { CheckBox } from "./CheckBox";
 import { useNavigate } from "react-router-dom";
 
 export const UploadForm = () => {
     const navigate = useNavigate();
-    const [text, setText] = useState<string>("");
-    const [outputTypes, setOutputTypes] = useState<string[]>([]);
+    const [checkboxes, setCheckboxes] = useState({
+        qa: false,
+        transcripts: false,
+        notes: false,
+        summary: false,
+    });
+    const [file, setFile] = useState<File | null>(null);
+    const [error, setError] = useState('');
+    const [fileError, setFileError] = useState('');
+
+    useEffect(() => {
+        if (!Object.values(checkboxes).includes(true)) {
+            setError("Please select at least one option.");
+        } else {
+            setError('');
+        }
+    }, [checkboxes]);
+
+    const handleCheckboxChange = (id: string, isChecked: boolean) => {
+        setCheckboxes((prev) => ({
+            ...prev,
+            [id]: isChecked,
+        }));
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = e.target.files ? e.target.files[0] : null;
+        setFile(selectedFile);
+
+        if (selectedFile) {
+            setFileError('');
+        }
+    };
 
     const postText: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
@@ -23,17 +54,35 @@ export const UploadForm = () => {
         try {
             const response = await fetch("http://127.0.0.1:5000/api/process-content", {
                 method: "POST",
+
+        if (!Object.values(checkboxes).includes(true)) {
+            setError("Please select at least one option.");
+            return;
+        }
+
+        if (!file) {
+            setFileError("Please upload a file.");
+            return;
+        }
+
+        const selectedContent = Object.entries(checkboxes)
+            .filter(([, isChecked]) => isChecked)
+            .map(([key]) => key.charAt(0).toUpperCase() + key.slice(1)); // 格式化为"Q&A", "Transcript"等
+
+        try {
+            const response = await fetch('http://127.0.0.1:5050/text', {
+                method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ content: text, data_types: outputTypes }),
+                body: JSON.stringify({ content: selectedContent }),
             });
 
-            if (!response.ok) {
-                throw new Error("Failed to post data");
-            }
+            if (!response.ok) throw new Error('Failed to post data');
 
             const data = await response.json();
+            navigate('/output', { state: { data } });
             console.log("Data submitted successfully:", data);
 
             // Navigate to '/output', passing data in state
@@ -81,11 +130,13 @@ export const UploadForm = () => {
                     <div className="card-body">
                         <p className="card-text fs-4 text-light">Select the content you want to generate</p>
                         <div className="row m-3">
-                            <CheckBox id="qa" labelText="Q & A" onChange={handleCheckbox} />
-                            <CheckBox id="transcripts" labelText="Transcripts" onChange={handleCheckbox} />
-                            <CheckBox id="notes" labelText="Notes" onChange={handleCheckbox} />
-                            <CheckBox id="summary" labelText="Summary" onChange={handleCheckbox} />
+                            <CheckBox id="qa" labelText="Q & A" checked={checkboxes.qa} onChange={handleCheckboxChange} />
+                            <CheckBox id="transcripts" labelText="Transcripts" checked={checkboxes.transcripts} onChange={handleCheckboxChange} />
+                            <CheckBox id="notes" labelText="Notes" checked={checkboxes.notes} onChange={handleCheckboxChange} />
+                            <CheckBox id="summary" labelText="Summary" checked={checkboxes.summary} onChange={handleCheckboxChange} />
                         </div>
+                        {error && <p className="text-danger">{error}</p>}
+
                         <div className="mb-3">
                             <p className="card-text fs-4 text-light lh-sm mb-1">Select a media file</p>
                             <p className="card-text fs-6 text-secondary">
@@ -105,6 +156,7 @@ export const UploadForm = () => {
                                 rows={5}
                             ></textarea>
                         </div>
+
                         <div className="d-flex justify-content-center">
                             <button
                                 type="submit"

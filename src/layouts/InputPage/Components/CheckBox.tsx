@@ -1,16 +1,23 @@
 interface CheckboxProps {
     id: string;
     labelText: string;
-    onChange: React.ChangeEventHandler<HTMLInputElement>;
-  }
-  
-export const CheckBox: React.FC<CheckboxProps> = ({id, labelText, onChange}) => {
+    checked: boolean;
+    onChange: (id: string, isChecked: boolean) => void;
+}
+
+export const CheckBox: React.FC<CheckboxProps> = ({ id, labelText, checked, onChange }) => {
     return (
         <div className="form-check">
-            <input onChange={onChange} className="form-check-input" type="checkbox" value="" id={id} />
-            <label className="form-check-label text-secondary fs-5" htmlFor={id} >
+            <input 
+                className="form-check-input" 
+                type="checkbox" 
+                id={id} 
+                checked={checked}
+                onChange={(e) => onChange(id, e.target.checked)} 
+            />
+            <label className="form-check-label text-secondary fs-5" htmlFor={id}>
                 {labelText}
             </label>
         </div>
-    )
+    );
 }
