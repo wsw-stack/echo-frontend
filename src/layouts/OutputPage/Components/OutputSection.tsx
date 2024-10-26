@@ -1,3 +1,5 @@
+import ReactMarkdown from 'react-markdown'
+
 export const OutputSection = (props: any) => {
     return (
         <div className="card bg-dark border-white mt-3 mb-3">
@@ -6,7 +8,7 @@ export const OutputSection = (props: any) => {
             </div>
             <hr className="border-light m-0"></hr>
             <div className="card-body">
-                <p className="card-text text-light"> {props.text} </p>
+                <p className="card-text text-light"><ReactMarkdown children={props.text} /></p>
             </div>
         </div>
     )
