@@ -1,4 +1,4 @@
-import {ChangeEventHandler, FormEventHandler, useState, useEffect } from "react";
+import { ChangeEventHandler, FormEventHandler, useState, useEffect } from "react";
 import { CheckBox } from "./CheckBox";
 import { useNavigate } from "react-router-dom";
 
@@ -10,9 +10,8 @@ export const UploadForm = () => {
         notes: false,
         summary: false,
     });
-    const [file, setFile] = useState<File | null>(null);
+    const [text, setText] = useState('');
     const [error, setError] = useState('');
-    const [fileError, setFileError] = useState('');
 
     useEffect(() => {
         if (!Object.values(checkboxes).includes(true)) {
@@ -29,63 +28,37 @@ export const UploadForm = () => {
         }));
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedFile = e.target.files ? e.target.files[0] : null;
-        setFile(selectedFile);
-
-        if (selectedFile) {
-            setFileError('');
-        }
-    };
-
     const postText: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
-
-        if (!text.trim()) {
-            alert("Please provide text to process.");
-            return;
-        }
-
-        if (outputTypes.length === 0) {
-            alert("Please select at least one output type.");
-            return;
-        }
-
-        try {
-            const response = await fetch("http://127.0.0.1:5000/api/process-content", {
-                method: "POST",
 
         if (!Object.values(checkboxes).includes(true)) {
             setError("Please select at least one option.");
             return;
         }
 
-        if (!file) {
-            setFileError("Please upload a file.");
+        if (!text.trim()) {
+            alert("Please provide text to process.");
             return;
         }
 
-        const selectedContent = Object.entries(checkboxes)
-            .filter(([, isChecked]) => isChecked)
-            .map(([key]) => key.charAt(0).toUpperCase() + key.slice(1)); // 格式化为"Q&A", "Transcript"等
+        const outputTypes = Object.entries(checkboxes)
+            .filter(([_, isChecked]) => isChecked)
+            .map(([key]) => key);
 
         try {
-            const response = await fetch('http://127.0.0.1:5050/text', {
-                method: 'POST',
+            const response = await fetch("http://127.0.0.1:5000/api/process-content", {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ content: text, data_types: outputTypes }),
-                body: JSON.stringify({ content: selectedContent }),
             });
 
             if (!response.ok) throw new Error('Failed to post data');
 
             const data = await response.json();
-            navigate('/output', { state: { data } });
             console.log("Data submitted successfully:", data);
 
-            // Navigate to '/output', passing data in state
             navigate("/output", { state: { data } });
         } catch (error) {
             console.error("Error posting data:", error);
@@ -110,17 +83,6 @@ export const UploadForm = () => {
                     console.error("Error:", error);
                 });
         }
-    };
-
-    const handleCheckbox: ChangeEventHandler<HTMLInputElement> = (e) => {
-        const { id, checked } = e.target;
-        setOutputTypes((prevOutputTypes) => {
-            if (checked) {
-                return [...prevOutputTypes, id];
-            } else {
-                return prevOutputTypes.filter((type) => type !== id);
-            }
-        });
     };
 
     return (
