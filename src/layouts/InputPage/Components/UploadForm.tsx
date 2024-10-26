@@ -12,6 +12,7 @@ export const UploadForm = () => {
     });
     const [text, setText] = useState('');
     const [error, setError] = useState('');
+    const [isTextApiPending, setIsTextApiPending] = useState(false)
 
     useEffect(() => {
         if (!Object.values(checkboxes).includes(true)) {
