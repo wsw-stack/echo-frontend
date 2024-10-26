@@ -47,6 +47,7 @@ export const UploadForm = () => {
             .map(([key]) => key);
 
         try {
+            setIsTextApiPending(true)
             const response = await fetch("http://127.0.0.1:5000/api/process-content", {
                 method: "POST",
                 headers: {
@@ -63,6 +64,8 @@ export const UploadForm = () => {
             navigate("/output", { state: { data } });
         } catch (error) {
             console.error("Error posting data:", error);
+        } finally {
+            setIsTextApiPending(false)
         }
     };
 
@@ -125,8 +128,12 @@ export const UploadForm = () => {
                                 type="submit"
                                 className="btn mt-3 text-light border-light fw-bold"
                                 style={{ borderWidth: "2px" }}
+                                disabled={isTextApiPending}
                             >
-                                Generate a response
+                                {isTextApiPending && <div className="spinner-border" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>}
+                                {!isTextApiPending && "Generate a response"}
                             </button>
                         </div>
                     </div>
