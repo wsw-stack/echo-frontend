@@ -1,5 +1,3 @@
-import { Navbar } from './layouts/NavbarAndFooter/Navbar';
-import { Footer } from './layouts/NavbarAndFooter/Footer';
 import { Input } from './layouts/InputPage/Input';
 import { Output } from './layouts/OutputPage/Output';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
